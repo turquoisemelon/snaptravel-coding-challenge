@@ -1,38 +1,43 @@
 S = [-1, 0, 1, 2, -1, -4];
 
-function findUniqueTriplets(arr) {
+const filterDublicates = (arr) => {
+  const seen = {};
+  return arr.filter((item) => {
+      return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+  });
+}
+
+const findUniqueTriplets = (arr) => {
   arr.sort(function compareNumbers(a, b) {
     return a - b;
   });
-  var result = [];
-  for (var i = 0; i < arr.length ; i++) {
-    var a = arr[i];
-    var b = i+1;
-    var c = arr.length-1;
+  const result = [];
+  for (let i = 0; i < arr.length ; i++) {
+    let a = arr[i];
+    let b = i+1;
+    let c = arr.length-1;
     while (b < c) {
       triplet_sum = a + arr[b] + arr[c]
       if (triplet_sum === 0) {
-        var array = [];
+        const array = [];
         array.push(a);
         array.push(arr[b]);
         array.push(arr[c]);
         result.push(array);
-        console.log("array:", array);
-        console.log("result:", result);
         c -= 1;
       } else if (triplet_sum > 0) {
-       c -= 1;
+        c -= 1;
       } else {
-       b += 1;
+        b += 1;
       }
     }
   }
-  return result;
+  return filterDublicates(result);
 }
 
-var x = findUniqueTriplets(S);
+let x = findUniqueTriplets(S);
+console.log("Solution set:", x);
 
-// console.log(x);
 
 
 
